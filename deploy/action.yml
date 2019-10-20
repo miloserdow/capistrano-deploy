@@ -13,4 +13,4 @@ inputs:
     default: 'config/deploy_id_rsa_enc'
 runs:  
   using: 'node12'
-  main: 'index.js'
+  main: 'lib/run.js'
