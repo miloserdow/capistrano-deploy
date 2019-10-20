@@ -71,9 +71,9 @@ function run() {
       core.setFailed('Encrypted RSA private key undefined');
     }
     
-    yield install_deps();
-    yield decrypt_key(deploy_key, enc_rsa_key_pth);
-    yield deploy(target);
+    //yield install_deps();
+    //yield decrypt_key(deploy_key, enc_rsa_key_pth);
+    //yield deploy(target);
   });
 }
 

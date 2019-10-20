@@ -1,0 +1,17 @@
+{
+    "name": "actions",
+    "version": "0.0.0",
+    "description": "Node modules for capistrano actions",
+    "author": "Vladimir Miloserdov",
+    "license": "MIT",
+    "dependencies": {
+        "@actions/core": "file:action-modules/actions-core-0.0.0.tgz",
+        "@actions/exec": "file:action-modules/actions-exec-0.0.0.tgz",
+        "@actions/github": "^1.1.0",
+        "@actions/io": "file:action-modules/actions-io-0.0.0.tgz",
+        "@actions/tool-cache": "file:action-modules/actions-tool-cache-0.0.0.tgz"
+    },
+    "devDependencies": {
+        "@types/node": "^12.0.10"
+    }
+}
