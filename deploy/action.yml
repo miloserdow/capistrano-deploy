@@ -11,16 +11,6 @@ inputs:
     description: 'Path to SSH private key encrypted with deploy_key'
     required: true
     default: 'config/deploy_id_rsa_enc'
-    
-runs: |
-  # Install the requirements
-  gem install bundler
-  gem install capistrano
-  
-  # Create directory if not exists
-  mkdir -p config
-  
-  # Decrypt RSA private key
-  openssl aes-256-cbc -k ${{deploy_key}} -in ${{enc_rsa_key_pth}} -d -a -out config/deploy_id_rsa
-  
-  bundle exec cap deploy
+runs:  
+  using: 'node12'
+  main: 'index.js'
