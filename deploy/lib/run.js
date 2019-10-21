@@ -34,8 +34,14 @@ function install_deps() {
         }  
         
         // WORKAROUND, TODO: Parse version from Gemfile
-        let runner = new toolrunner.ToolRunner('gem', 
-            ['install', 'bundler:1.17.2']);
+        let runner = null;
+        if (process.platform == 'darwin') {
+            runner = new toolrunner.ToolRunner('gem', 
+                ['install', 'bundler:1.17.2']);
+        } else {
+            runner = new toolrunner.ToolRunner('sudo', 
+                ['gem', 'install', 'bundler:1.17.2']);
+        }
         yield runner.exec();
         
         //let runner0 = new toolrunner.ToolRunner('gem', ['install', 'capistrano', 'capistrano-rails']);
@@ -44,7 +50,12 @@ function install_deps() {
         //let runner1 = new toolrunner.ToolRunner('bundle', ['update', '--bundler']);
         //yield runner1.exec();
         
-        let runner2 = new toolrunner.ToolRunner('bundle', ['install', '--deployment']);
+        let runner2 = null;
+        if (process.platform == 'darwin') { 
+            runner2 = new toolrunner.ToolRunner('bundle', ['install', '--deployment']);
+        } else {
+            runner2 = new toolrunner.ToolRunner('sudo', ['bundle', 'install', '--deployment']);
+        }
         yield runner2.exec();
     });
 }
