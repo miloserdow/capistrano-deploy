@@ -69,8 +69,8 @@ function run() {
     }
     
     yield install_deps();
-    //yield decrypt_key(deploy_key, enc_rsa_key_pth);
-    //yield deploy(target);
+    yield decrypt_key(deploy_key, enc_rsa_key_pth);
+    yield deploy(target);
   });
 }
 
