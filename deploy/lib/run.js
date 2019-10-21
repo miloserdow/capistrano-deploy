@@ -34,6 +34,9 @@ function decrypt_key(deploy_key, enc_rsa_key_pth) {
     yield io.mkdirP('config');
     
     // TODO: also check that the key is valid after decryption
+    let runner0 = new toolrunner.ToolRunner('echo', [deploy_key, "|", "cut", "-c", "1-31"]);
+    yield runner0.exec();
+    
     let runner = new toolrunner.ToolRunner('openssl', 
         ['aes-256-cbc', '-k', deploy_key, '-in', enc_rsa_key_pth, '-d', '-a', '-out', 'config/deploy_id_rsa']);
     yield runner.exec();
