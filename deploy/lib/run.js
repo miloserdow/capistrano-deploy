@@ -59,9 +59,6 @@ function run() {
     let deploy_key = core.getInput('deploy_key');
     let enc_rsa_key_pth = core.getInput('enc_rsa_key_pth');
     
-    // no idea if I use it correctly
-    core.setSecrect('deploy_key');
-    
     if (!deploy_key) {
       core.setFailed('No deploy key given');
     }
@@ -71,7 +68,7 @@ function run() {
       core.setFailed('Encrypted RSA private key undefined');
     }
     
-    //yield install_deps();
+    yield install_deps();
     //yield decrypt_key(deploy_key, enc_rsa_key_pth);
     //yield deploy(target);
   });
