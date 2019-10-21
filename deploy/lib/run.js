@@ -29,7 +29,7 @@ function install_deps() {
             runner_.exec();
         } else {
             let runner_ = new toolrunner.ToolRunner('sudo',  
-                ['apt-get', 'install', 'ruby-full', 'build-essential']);
+                ['apt-get', 'install', 'ruby-full', 'build-essential', 'postgresql', 'libpq-dev']);
            yield runner_.exec();
         }  
         
