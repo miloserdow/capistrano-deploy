@@ -23,8 +23,19 @@ const fs = require("fs");
 
 function install_deps() {
     return __awaiter(this, void 0, void 0, function* () {
-        let runner = new toolrunner.ToolRunner('gem', ['install', 'bundler', 'capistrano']);
+        // WORKAROUND, TODO: Parse version from Gemfile
+        let runner = new toolrunner.ToolRunner('gem', 
+            ['install', 'bundler:1.17.2', 'capistrano:3.6.1', 'capistrano-yarn:2.0.2', 'capistrano-rails:1.4.0']);
         yield runner.exec();
+        
+        //let runner0 = new toolrunner.ToolRunner('gem', ['install', 'capistrano', 'capistrano-rails']);
+        //yield runner0.exec();
+        
+        //let runner1 = new toolrunner.ToolRunner('bundle', ['update', '--bundler']);
+        //yield runner1.exec();
+        
+        //let runner2 = new toolrunner.ToolRunner('bundle', ['install', '--deployment']);
+        //yield runner2.exec();
     });
 }
 
@@ -33,12 +44,13 @@ function decrypt_key(deploy_key, enc_rsa_key_pth) {
     // Create directory if not exists
     yield io.mkdirP('config');
     
-    // TODO: also check that the key is valid after decryption
-    let runner0 = new toolrunner.ToolRunner('echo', [deploy_key, "|", "cut", "-c", "1-31"]);
+    let runner0 = new toolrunner.ToolRunner('openssl', ['version']);
     yield runner0.exec();
-    
+
+    // TODO: also check that the key is valid after decryption
     let runner = new toolrunner.ToolRunner('openssl', 
-        ['aes-256-cbc', '-k', deploy_key, '-in', enc_rsa_key_pth, '-d', '-a', '-out', 'config/deploy_id_rsa']);
+        ['enc', '-d', '-aes-256-cbc', '-md', 'sha512', '-salt', '-in', 
+         enc_rsa_key_pth, '-out', 'config/deploy_id_rsa', '-k', deploy_key, '-a']);
     yield runner.exec();
   });
 }
