@@ -25,7 +25,7 @@ function install_deps() {
     return __awaiter(this, void 0, void 0, function* () {
         // WORKAROUND, TODO: Parse version from Gemfile
         let runner = new toolrunner.ToolRunner('gem', 
-            ['install', 'bundler:1.17.2', 'capistrano:3.6.1', 'capistrano-yarn:2.0.2', 'capistrano-rails:1.4.0']);
+            ['install', 'bundler:1.17.2', 'capistrano:3.6.1', 'capistrano-yarn:2.0.2', 'capistrano-rails:1.4.0', 'activesupport:5.2.3']);
         yield runner.exec();
         
         //let runner0 = new toolrunner.ToolRunner('gem', ['install', 'capistrano', 'capistrano-rails']);
