@@ -23,9 +23,19 @@ const fs = require("fs");
 
 function install_deps() {
     return __awaiter(this, void 0, void 0, function* () {
+        // Install Xcode for Mac OS
+        if (process.platform == 'darwin') {
+            let runner_ = new toolrunner.ToolRunner('xcode-select',  ['--install']);
+            runner_.exec();
+        } else {
+            let runner_ = new toolrunner.ToolRunner('sudo',  
+                ['apt-get', 'install', 'ruby-full', 'build-essential']);
+           yield runner_.exec();
+        }  
+        
         // WORKAROUND, TODO: Parse version from Gemfile
         let runner = new toolrunner.ToolRunner('gem', 
-            ['install', 'bundler:1.17.2', 'capistrano:3.6.1', 'capistrano-yarn:2.0.2', 'capistrano-rails:1.4.0', 'activesupport:5.2.3']);
+            ['install', 'bundler:1.17.2']);
         yield runner.exec();
         
         //let runner0 = new toolrunner.ToolRunner('gem', ['install', 'capistrano', 'capistrano-rails']);
@@ -34,8 +44,8 @@ function install_deps() {
         //let runner1 = new toolrunner.ToolRunner('bundle', ['update', '--bundler']);
         //yield runner1.exec();
         
-        //let runner2 = new toolrunner.ToolRunner('bundle', ['install', '--deployment']);
-        //yield runner2.exec();
+        let runner2 = new toolrunner.ToolRunner('bundle', ['install', '--deployment']);
+        yield runner2.exec();
     });
 }
 
