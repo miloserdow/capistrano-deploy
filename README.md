@@ -1,7 +1,5 @@
 # Capistrano actions
-Github Actions for Capistrano.
-
-Currently deploy action is supported.
+Github deploy action for Capistrano. Use this action to automate your capistrano deployment process.
 
 ## Inputs
 ### `target`
