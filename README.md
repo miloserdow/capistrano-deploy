@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: miloserdow/capistrano-actions/deploy@master
+    - uses: miloserdow/capistrano-deploy@v1.1
       with:
         target: 'production'
         deploy_key: ${{ secrets.DEPLOY_ENC_KEY }}
