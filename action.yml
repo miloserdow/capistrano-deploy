@@ -1,5 +1,5 @@
-name: 'Deploy'
-description: 'Deploy an application to the given target'
+name: 'Capistrano deploy'
+description: 'Deploy an application using capistrano to the given target'
 inputs:
   target:  # string
     description: 'Environment where deploy is to be performed to'
