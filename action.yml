@@ -14,6 +14,9 @@ inputs:
     description: 'Path to SSH private key encrypted with deploy_key'
     required: true
     default: 'config/deploy_id_rsa_enc'
+  ruby_version:
+    description: 'Ruby version'
+    required: false
 runs:  
   using: 'node12'
   main: 'lib/run.js'
