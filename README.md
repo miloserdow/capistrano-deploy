@@ -34,20 +34,32 @@ $ openssl enc -aes-256-cbc -md sha512 -salt -in .ssh/id_rsa -out deploy_id_rsa_e
 
 ## Workflow example
 ```yaml
-name: deploy_production
+name: Deploy with Capistrano
 
 on:
   push:
-    branches: 
-      - master
+    branches:
+    - master
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: miloserdow/capistrano-deploy@v1.3
+    - name: Set up Ruby
+      uses: actions/setup-ruby@v1
       with:
-        target: 'production'
+        ruby-version: 2.6.5
+    - name: Restore Bundler cache
+      id: cache
+      uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-bundle-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-bundle-
+    - uses: miloserdow/capistrano-deploy@v2
+      with:
+        target: production
         deploy_key: ${{ secrets.DEPLOY_ENC_KEY }}
 ```
