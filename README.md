@@ -1,6 +1,9 @@
 # Capistrano actions
 Github deploy action for Capistrano. Use this action to automate your capistrano deployment process.
 
+## Dependencies
+Ruby should be installed with official ruby action (https://github.com/actions/setup-ruby)
+
 ## Inputs
 ### `target`
 Environment where deploy is to be performed to. E.g. "production", "staging". Default value is empty
