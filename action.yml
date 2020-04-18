@@ -1,7 +1,7 @@
 name: 'Capistrano deploy'
 description: 'Deploy an application using capistrano to the given target'
 branding:
-  icon: 'arrow-right-circle'  
+  icon: 'arrow-right-circle'
   color: 'black'
 inputs:
   target:  # string
@@ -14,6 +14,11 @@ inputs:
     description: 'Path to SSH private key encrypted with deploy_key'
     required: true
     default: 'config/deploy_id_rsa_enc'
-runs:  
+  working-directory:
+    description: 'The directory from which to run the deploy command'
+    required: false
+    default: ''
+
+runs:
   using: 'node12'
   main: 'lib/run.js'
