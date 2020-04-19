@@ -14,6 +14,9 @@ Environment where deploy is to be performed to. E.g. "production", "staging". De
 ### `enc_rsa_key_pth`
 **Required** Path to the encrypted key. Default `"config/deploy_id_rsa_enc"`.
 
+### `working-directory`
+The directory from which to run the deploy commands, including `bundle install`.
+
 ## Outputs
 No outputs
 
