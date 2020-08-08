@@ -55,7 +55,7 @@ jobs:
     - name: Set up Ruby
       uses: actions/setup-ruby@v1
       with:
-        ruby-version: 2.6.5
+        ruby-version: 2.6
     - name: Restore Bundler cache
       id: cache
       uses: actions/cache@v1
