@@ -12,8 +12,11 @@ inputs:
     required: true
   enc_rsa_key_pth:
     description: 'Path to SSH private key encrypted with deploy_key'
-    required: true
+    required: false
     default: 'config/deploy_id_rsa_enc'
+  enc_rsa_key_val:
+    description: 'Value of the SSH private key encrypted with deploy_key'
+    required: false
   working-directory:
     description: 'The directory from which to run the deploy command'
     required: false
