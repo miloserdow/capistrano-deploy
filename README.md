@@ -12,7 +12,10 @@ Environment where deploy is to be performed to. E.g. "production", "staging". De
 **Required** Symmetric key to decrypt private RSA key. Must be a string.
 
 ### `enc_rsa_key_pth`
-**Required** Path to the encrypted key. Default `"config/deploy_id_rsa_enc"`.
+Path to the encrypted key. Default `"config/deploy_id_rsa_enc"`. You have to use either `enc_rsa_key_pth` or `enc_rsa_key_val`.
+
+### `enc_rsa_key_val`
+Contents of the encrypted key. Best to use as repository secret. You have to use either `enc_rsa_key_pth` or `enc_rsa_key_val`.
 
 ### `working-directory`
 The directory from which to run the deploy commands, including `bundle install`.
