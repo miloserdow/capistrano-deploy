@@ -20,6 +20,10 @@ Contents of the encrypted key. Best to use as repository secret. You have to use
 ### `working-directory`
 The directory from which to run the deploy commands, including `bundle install`.
 
+### `bundler_version`
+
+The version of Bundler to install before running the bundle-command. By default Bundler v1.17.3 is used.
+
 ## Outputs
 No outputs
 
