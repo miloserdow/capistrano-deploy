@@ -2,11 +2,11 @@
 Github deploy action for Capistrano. Use this action to automate your capistrano deployment process.
 
 ## Dependencies
-Ruby should be installed with official ruby action (https://github.com/actions/setup-ruby)
+This action expects Ruby to be installed along with Capistrano, see below for a [basic workflow example](#workflow-example) that uses [ruby/setup-ruby](https://github.com/ruby/setup-ruby).
 
 ## Inputs
 ### `target`
-Environment where deploy is to be performed to. E.g. "production", "staging". Default value is empty
+Environment where deploy is to be performed to. E.g. "production", "staging". Default value is empty.
 
 ### `deploy_key`
 **Required** Symmetric key to decrypt private RSA key. Must be a string.
@@ -19,10 +19,6 @@ Contents of the encrypted key. Best to use as repository secret. You have to use
 
 ### `working-directory`
 The directory from which to run the deploy commands, including `bundle install`.
-
-### `bundler_version`
-
-The version of Bundler to install before running the bundle-command. By default Bundler v1.17.3 is used.
 
 ## Outputs
 No outputs
@@ -59,19 +55,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Set up Ruby
-      uses: actions/setup-ruby@v1
+    - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.6
-    - name: Restore Bundler cache
-      id: cache
-      uses: actions/cache@v1
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-bundle-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-bundle-
-    - uses: miloserdow/capistrano-deploy@v2.1
+        bundler-cache: true
+    - uses: miloserdow/capistrano-deploy@v2
       with:
         target: production
         deploy_key: ${{ secrets.DEPLOY_ENC_KEY }}
