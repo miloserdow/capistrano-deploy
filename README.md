@@ -59,7 +59,7 @@ jobs:
       with:
         ruby-version: 2.6
         bundler-cache: true
-    - uses: miloserdow/capistrano-deploy@v2
+    - uses: miloserdow/capistrano-deploy@master
       with:
         target: production
         deploy_key: ${{ secrets.DEPLOY_ENC_KEY }}
