@@ -4,10 +4,6 @@ branding:
   icon: 'arrow-right-circle'
   color: 'black'
 inputs:
-  bundler_version:
-    default: '1.17.3'
-    description: 'The version of Bundler to install before running the bundle-command'
-    required: true
   target:  # string
     description: 'Environment where deploy is to be performed to'
     required: false # if no param is given, default cap target will be selected
