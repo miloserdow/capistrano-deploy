@@ -7,7 +7,7 @@ inputs:
   capistrano_command:
     description: 'The Capistrano command to run'
     required: true
-    default: 'deploy'
+    default: '["deploy"]'
   target:  # string
     description: 'Environment where deploy is to be performed to'
     required: false # if no param is given, default cap target will be selected
