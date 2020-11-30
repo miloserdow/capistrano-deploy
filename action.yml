@@ -4,8 +4,8 @@ branding:
   icon: 'arrow-right-circle'
   color: 'black'
 inputs:
-  capistrano_command:
-    description: 'The Capistrano command to run'
+  capistrano_commands:
+    description: 'The Capistrano commands to run'
     required: true
     default: '["deploy"]'
   target:  # string
