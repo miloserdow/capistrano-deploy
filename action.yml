@@ -4,6 +4,10 @@ branding:
   icon: 'arrow-right-circle'
   color: 'black'
 inputs:
+  capistrano_commands:
+    description: 'The Capistrano commands to run'
+    required: true
+    default: '["deploy"]'
   target:  # string
     description: 'Environment where deploy is to be performed to'
     required: false # if no param is given, default cap target will be selected
