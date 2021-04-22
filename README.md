@@ -35,7 +35,7 @@ $ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 3. Add public key from `~/.ssh/id_rsa.pub` to your repository's deployment keys via *Settings / Deploy keys / Add*
 4. Encrypt your private key with a strong password. **Please use these options**, otherwise this action may not be able to decrypt your key.
 ```bash
-$ openssl enc -aes-256-cbc -md sha512 -salt -in .ssh/id_rsa -out deploy_id_rsa_enc -k PASSWORD -a
+$ openssl enc -aes-256-cbc -md sha512 -salt -in ~/.ssh/id_rsa -out deploy_id_rsa_enc -k "PASSWORD" -a -pbkdf2
 ```
 5. Add `deploy_id_rsa_enc` file to your repository. Suggested path is `config/deploy_id_rsa_enc`
 6. Save the password used in step 4 as a secret in repository settings via *Settings / Secrets / Add*
