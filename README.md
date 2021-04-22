@@ -43,24 +43,35 @@ $ openssl enc -aes-256-cbc -md sha512 -salt -in ~/.ssh/id_rsa -out deploy_id_rsa
 
 ## Workflow example
 ```yaml
+# This is a basic workflow to help you get started with Actions
 name: Deploy with Capistrano
 
+# Controls when the action will run. 
 on:
+  # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches:
-    - master
+    branches: [ main ]
 
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  # This workflow contains a single job called "build"
   deploy:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - uses: actions/checkout@v1
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.6
-        bundler-cache: true
+        # ruby-version: 3.0.1 # Not needed with a .ruby-version file
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - uses: miloserdow/capistrano-deploy@master
       with:
-        target: production
-        deploy_key: ${{ secrets.DEPLOY_ENC_KEY }}
+        target: development # Defines the environment that will be used for the deployment
+        deploy_key: ${{ secrets.DEPLOY_ENC_KEY }} # Name of the variable configured in Settings/Secrets of your github project
 ```
