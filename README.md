@@ -9,7 +9,8 @@ This action expects Ruby to be installed along with Capistrano, see below for a 
 Environment where deploy is to be performed to. E.g. "production", "staging". Default value is empty.
 
 ### `deploy_key`
-**Required** Symmetric key to decrypt private RSA key. Must be a string.
+**Required** Symmetric key to decrypt private 
+key. Must be a string.
 
 ### `enc_rsa_key_pth`
 Path to the encrypted key. Default `"config/deploy_id_rsa_enc"`. You have to use either `enc_rsa_key_pth` or `enc_rsa_key_val`.
@@ -26,18 +27,18 @@ No outputs
 ## Setting up CD using this action
 1. Generate SSH keys on the target machine
 ```bash
-$ ssh-keygen
+$ ssh-keygen -t ed25519
 ```
 2. Export public key to the `authorized_keys` to allow the usage of this keypair to login
 ```bash
-$ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+$ cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
 ```
-3. Add public key from `~/.ssh/id_rsa.pub` to your repository's deployment keys via *Settings / Deploy keys / Add*
+3. Add public key from `~/.ssh/id_ed25519.pub` to your repository's deployment keys via *Settings / Deploy keys / Add*
 4. Encrypt your private key with a strong password. **Please use these options**, otherwise this action may not be able to decrypt your key.
 ```bash
-$ openssl enc -aes-256-cbc -md sha512 -salt -in ~/.ssh/id_rsa -out deploy_id_rsa_enc -k "PASSWORD" -a -pbkdf2
+$ openssl enc -aes-256-cbc -md sha512 -salt -in ~/.ssh/id_ed25519 -out deploy_id_ed25519_enc -k "PASSWORD" -a -pbkdf2
 ```
-5. Add `deploy_id_rsa_enc` file to your repository. Suggested path is `config/deploy_id_rsa_enc`
+5. Add `deploy_id_ed25519_enc` file to your repository. Suggested path is `config/deploy_id_ed25519_enc`
 6. Save the password used in step 4 as a secret in repository settings via *Settings / Secrets / Add*
 7. Create YAML configuration for your workflow (example below)
 
