@@ -27,5 +27,5 @@ inputs:
     default: ''
 
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'lib/run.js'
