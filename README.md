@@ -38,7 +38,7 @@ $ cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
 ```bash
 $ openssl enc -aes-256-cbc -md sha512 -salt -in ~/.ssh/id_ed25519 -out deploy_id_rsa_enc -k "PASSWORD" -a -pbkdf2
 ```
-5. Add `deploy_id_ed25519_enc` file to your repository. Suggested path is `config/deploy_id_rsa_enc`
+5. Add `deploy_id_rsa_enc` file to your repository. Suggested path is `config/deploy_id_rsa_enc`
 6. Save the password used in step 4 as a secret in repository settings via *Settings / Secrets / Add*
 7. Create YAML configuration for your workflow (example below)
 
