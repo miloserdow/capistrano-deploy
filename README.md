@@ -71,8 +71,65 @@ jobs:
       with:
         # ruby-version: 3.0.1 # Not needed with a .ruby-version file
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - uses: miloserdow/capistrano-deploy@master
+    - uses: miloserdow/capistrano-deploy@v3 # you can use miloserdow/capistrano-deploy@master for the cuurent stable dev version
       with:
         target: development # Defines the environment that will be used for the deployment
         deploy_key: ${{ secrets.DEPLOY_ENC_KEY }} # Name of the variable configured in Settings/Secrets of your github project
 ```
+
+## Example running this action with custom commands
+In this example we are starting rails and Sidekiq with Capistrano
+
+### Personal access token
+You need to create a personal access token with "repo" access like described here:
+https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token
+
+### Dispatch workflow
+Create a new dispatch workflow like described here: https://docs.github.com/en/free-pro-team@latest/rest/reference/actions#create-a-workflow-dispatch-event
+
+### Workflow file:
+```yml
+name: Start Rails and Sidekiq with Capistrano
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "The environment to deploy"
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Turnstyle
+      uses: softprops/turnstyle@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        abort-after-seconds: 3600
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.6.6
+        bundler-cache: true
+    - name: Deploy
+      uses: kaspernj/capistrano-deploy@custom-capistrano-command
+      with:
+        capistrano_commands: '["puma:start", "sidekiq:start"]'
+        target: ${{ github.event.inputs.environment }}
+        deploy_key: ${{ secrets.DEPLOY_ENC_KEY }}
+```
+
+### Curl command
+```bash
+curl \
+  -X POST \
+  -H "Accept: application/vnd.github.v3+json" \
+  -H "Authorization: Bearer $PERSONAL_GITHUB_TOKEN" \
+  https://api.github.com/repos/$GITHUB_USERNAME/$GITHUB_REPO_NAME/actions/workflows/$WORKFLOW_FILE_NAME/dispatches \
+  -d "{\"ref\":\"master\",\"inputs\":{\"environment\":\"$ENVIRONMENT_TO_DEPLOY\"}}"
+```
+This command makes Github start Rails and Sidekiq at the deployment.
